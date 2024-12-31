@@ -1,0 +1,25 @@
+{
+    "App_Service": {
+        "as_token": "A random string",
+        "hs_token": "A different random string",
+        "id": "telegram",
+        "namespaces": {
+            "users": [
+                {
+                    "exclusive": true,
+                    "regex": "^@telegrambot:example\\.com$"
+                },
+                {
+                    "exclusive": true,
+                    "regex": "^@telegram_.*:example\\.com$"
+                }
+            ]
+        },
+        "rate_limited": false,
+        "receive_ephemeral": false,
+        "sender_localpart": "telegrambot",
+        "url": "https://appservice.endpoint"
+    },
+    "HS_API": "https://client.example.com",
+    "TG_bot_token": "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+}
