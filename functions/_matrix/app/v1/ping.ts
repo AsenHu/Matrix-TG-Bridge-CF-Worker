@@ -31,7 +31,7 @@ const onRequestPost = async (context: Context) => {
     // 签名为 sha512("Im_so_sleepy-" + 时间戳 + "-" + config.seed)
     // 检查签名
     const sign = body.transaction_id.split('-')[2].toLowerCase();
-    const sign_check = (await sha512("Im_so_sleepy-" + timestamp + "-" + config.seed)).toString().toLowerCase();
+    const sign_check = (await sha512("Im_so_sleepy-" + timestamp + "-" + config.seed)).toLowerCase();
     console.log("sign", sign, sign_check);
     if (sign !== sign_check) {
         console.log("sign failed");
@@ -63,7 +63,7 @@ async function sha512(message: string) {
         },
         myText
     );
-    return (new Uint8Array(myDigest));
+    return Array.from(new Uint8Array(myDigest)).map(b => b.toString(16).padStart(2, '0')).join('')
 }
 
 async function return_403() {
