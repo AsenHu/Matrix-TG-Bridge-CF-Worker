@@ -1,4 +1,8 @@
-const onRequestGet = async (context) => {
+interface Context {
+    env: { config: string };
+}
+
+const onRequestGet = async (context: Context) => {
     // 检查 debug 是否开启
     const config = JSON.parse(context.env.config);
     if (!config.debug) {
@@ -37,6 +41,17 @@ const onRequestGet = async (context) => {
     });
 }
 
+const onRequestOptions = async () => {
+    return new Response(null, {
+        status: 204,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, OPTIONS',
+            'Access-Control-Max-Age': '86400'
+        }
+    });
+}
+
 async function sha512(message: string) {
     const myText = new TextEncoder().encode(message);
     const myDigest = await crypto.subtle.digest(
@@ -56,3 +71,5 @@ async function return_404() {
         }
     });
 }
+
+export { onRequestGet, onRequestOptions }
