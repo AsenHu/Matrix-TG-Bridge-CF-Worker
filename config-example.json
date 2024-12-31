@@ -21,5 +21,6 @@
         "url": "https://appservice.endpoint"
     },
     "HS_API": "https://client.example.com",
-    "TG_bot_token": "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+    "TG_bot_token": "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11",
+    "seed": "A random string"
 }
