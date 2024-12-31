@@ -1,6 +1,13 @@
-import sha512 from 'crypto-js/sha512';
+interface Context {
+    env: { config: string };
+    request: Request;
+}
 
-const onRequestPost = async (context) => {
+interface Body {
+    transaction_id: string;
+}
+
+const onRequestPost = async (context: Context) => {
     // 鉴权
     const config = JSON.parse(context.env.config);
     const auth = context.request.headers.get('Authorization');
@@ -9,7 +16,7 @@ const onRequestPost = async (context) => {
     }
 
     // 获取请求
-    const body = await context.request.json();
+    const body: Body = await context.request.json();
     // body.transaction_id 应该为 "Im_so_sleepy-" + 时间戳 + "-" + 签名
     // 检查时间戳，不应超过 1 分钟
     const timestamp = parseInt(body.transaction_id.split('-')[1]);
@@ -37,6 +44,17 @@ const onRequestOptions = async () => {
             'Access-Control-Max-Age': '86400'
         }
     });
+}
+
+async function sha512(message: string) {
+    const myText = new TextEncoder().encode(message);
+    const myDigest = await crypto.subtle.digest(
+        {
+            name: 'SHA-512',
+        },
+        myText
+    );
+    return (new Uint8Array(myDigest));
 }
 
 async function return_403() {
