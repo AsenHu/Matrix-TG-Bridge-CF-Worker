@@ -4,7 +4,7 @@ const onRequestPost = async (context) => {
     // 鉴权
     const config = JSON.parse(context.env.config);
     const auth = context.request.headers.get('Authorization');
-    if (auth !== config.App_Service.hs_token) {
+    if (auth !== `Bearer ${config.App_Service.hs_token}`) {
         return return_403();
     }
 
